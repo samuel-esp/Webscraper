@@ -3,25 +3,27 @@ import lombok.*;
 import java.util.Date;
 
 @Data
-@Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
+@ToString
 public class Company {
 
-    private int id;
+    private String id;
 
-    private String companyName;
+    private String name;
 
-    private String companyType;
+    private String type;
 
-    private int review;
+    private Double starsCount;
 
-    private String mobile;
+    private Integer reviewsCount;
+
+    private String mobileNumber;
 
     private String address;
 
     private String website;
 
-    private Date date;
+    private String workingHours;
 
 
 }
