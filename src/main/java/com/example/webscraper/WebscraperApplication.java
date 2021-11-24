@@ -1,6 +1,7 @@
 package com.example.webscraper;
 
 import com.example.services.CompanyScraperService;
+import com.example.services.TennisPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +13,10 @@ public class WebscraperApplication {
 
     public static void main(String[] args) throws InterruptedException, IOException {
         SpringApplication.run(WebscraperApplication.class, args);
-        CompanyScraperService companyScraperService = new CompanyScraperService();
-        companyScraperService.scrape();
+        //CompanyScraperService companyScraperService = new CompanyScraperService();
+        //companyScraperService.scrape();
+        TennisPlayerService tennisPlayerService = new TennisPlayerService();
+        tennisPlayerService.scrape();
     }
 
 }

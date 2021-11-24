@@ -46,8 +46,7 @@ public class CompanyScraperService {
 
         Set<String> companyLinks = new HashSet<>();
 
-        for (int i = 0; i < 10; i = i + 10) {
-            int j = 0;
+        for (int i = 0; i < 100; i = i + 10) {
             StringBuilder stringBuilder = new StringBuilder();
             String newUrl = stringBuilder.append(URL).append(i).toString();
             driver.get(newUrl);
@@ -57,7 +56,6 @@ public class CompanyScraperService {
                 System.out.println(element.getAttribute("href"));
                 companyLinks.add(element.getAttribute("href"));
             }
-            System.out.println(j);
         }
 
         return companyLinks;
