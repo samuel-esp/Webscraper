@@ -103,12 +103,15 @@ public class TennisPlayerService {
                 careerHighRanking = driver.findElementByXPath("//td[@colspan=2]//div[@data-singles]").getText();
             } catch (NoSuchElementException e) {
 
-            }/*
+            }
             try {
-                age = Integer.parseInt(driver.findElementByXPath("(//div[@class='wrap'])[1]//div[@class='table-big-value'][1]").getText());
+                String ageString = driver.findElementByXPath("(//div[@class='wrap'])[1]//div[@class='table-big-value'][1]").getText();
+                ageString = StringUtils.substringBefore(ageString, "(");
+                ageString = ageString.replaceAll("\\D+","");
+                age = Integer.parseInt(ageString);
             } catch (NoSuchElementException e) {
 
-            }*/
+            }
             try {
                 birthplace = driver.findElementByXPath("(//div[@class='wrap'])[5]//div[@class='table-value']").getText();
             } catch (NoSuchElementException e) {
@@ -120,7 +123,11 @@ public class TennisPlayerService {
 
             }
             try {
-                staff = driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText();
+                if(driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText().equals(" ")){
+                    staff = null;
+                }else {
+                    staff = driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText();
+                }
             } catch (NoSuchElementException e) {
 
             }
@@ -158,14 +165,14 @@ public class TennisPlayerService {
 
             }
             try {
-                String wonGames = driver.findElementByXPath("(//td[@colspan=1])[6]//div/@data-singles").getAttribute("data-singles");
+                String wonGames = driver.findElementByXPath("(//td[@colspan=1])[6]//div[1]").getText();
                 wonGames = StringUtils.substringBefore(wonGames, "-");
                 wonGamesCount = Integer.parseInt(wonGames);
             } catch (NoSuchElementException e) {
-
+                
             }
             try {
-                String lostGames = driver.findElementByXPath("(//td[@colspan=1])[6]//div/@data-singles").getAttribute("data-singles");
+                String lostGames = driver.findElementByXPath("(//td[@colspan=1])[6]//div[1]").getText();
                 lostGames = StringUtils.substringAfter(lostGames, "-");
                 lostGamesCount = Integer.parseInt(lostGames);
             } catch (NoSuchElementException e) {
