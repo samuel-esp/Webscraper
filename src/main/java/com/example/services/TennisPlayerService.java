@@ -105,25 +105,37 @@ public class TennisPlayerService {
 
             }
             try {
-                String ageString = driver.findElementByXPath("(//div[@class='wrap'])[1]//div[@class='table-big-value'][1]").getText();
-                ageString = StringUtils.substringBefore(ageString, "(");
-                ageString = ageString.replaceAll("\\D+","");
-                age = Integer.parseInt(ageString);
+                if(driver.findElementByXPath("(//div[@class='wrap'])[1]//div[@class='table-big-value'][1]").getText().equals("")){
+                    age = null;
+                }else {
+                    String ageString = driver.findElementByXPath("(//div[@class='wrap'])[1]//div[@class='table-big-value'][1]").getText();
+                    ageString = StringUtils.substringBefore(ageString, "(");
+                    ageString = ageString.replaceAll("\\D+", "");
+                    age = Integer.parseInt(ageString);
+                }
             } catch (NoSuchElementException e) {
 
             }
             try {
-                birthplace = driver.findElementByXPath("(//div[@class='wrap'])[5]//div[@class='table-value']").getText();
+                if(driver.findElementByXPath("(//div[@class='wrap'])[5]//div[@class='table-value']").getText().equals("")){
+                    birthplace = null;
+                }else {
+                    birthplace = driver.findElementByXPath("(//div[@class='wrap'])[5]//div[@class='table-value']").getText();
+                }
             } catch (NoSuchElementException e) {
 
             }
             try {
-                residence = driver.findElementByXPath("(//div[@class='wrap'])[6]//div[@class='table-value']").getText();
+                if(driver.findElementByXPath("(//div[@class='wrap'])[6]//div[@class='table-value']").getText().equals("")){
+                    residence = null;
+                }else {
+                    residence = driver.findElementByXPath("(//div[@class='wrap'])[6]//div[@class='table-value']").getText();
+                }
             } catch (NoSuchElementException e) {
 
             }
             try {
-                if(driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText().equals(" ")){
+                if(driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText().equals("")){
                     staff = null;
                 }else {
                     staff = driver.findElementByXPath("(//div[@class='wrap'])[8]//div[@class='table-value']").getText();
@@ -132,12 +144,16 @@ public class TennisPlayerService {
 
             }
             try {
-                styleOfPlay = driver.findElementByXPath("(//div[@class='wrap'])[7]//div[@class='table-value']").getText();
+                if(driver.findElementByXPath("(//div[@class='wrap'])[7]//div[@class='table-value']").getText().equals("")){
+                    styleOfPlay = null;
+                }else {
+                    styleOfPlay = driver.findElementByXPath("(//div[@class='wrap'])[7]//div[@class='table-value']").getText();
+                }
             } catch (NoSuchElementException e) {
 
             }
             try {
-                if(driver.findElementByXPath("(//div[@class='wrap'])[2]//div[@class='table-big-value']").getText().equals(" ")){
+                if(driver.findElementByXPath("(//div[@class='wrap'])[2]//div[@class='table-big-value']").getText().equals("")){
                     turnedPro = null;
                 }else{
                     turnedPro = Integer.parseInt(driver.findElementByXPath("(//div[@class='wrap'])[2]//div[@class='table-big-value']").getText());
@@ -146,16 +162,24 @@ public class TennisPlayerService {
 
             }
             try {
-                String weightString = driver.findElementByXPath("(//div[@class='wrap'])[3]//div[@class='table-big-value']//span[@class='table-weight-kg-wrapper']").getText();
-                weightString = weightString.replaceAll("\\D+","");
-                weight = Integer.parseInt(weightString);
+                if(driver.findElementByXPath("(//div[@class='wrap'])[3]//div[@class='table-big-value']//span[@class='table-weight-kg-wrapper']").getText().equals("")){
+                    weight = null;
+                }else {
+                    String weightString = driver.findElementByXPath("(//div[@class='wrap'])[3]//div[@class='table-big-value']//span[@class='table-weight-kg-wrapper']").getText();
+                    weightString = weightString.replaceAll("\\D+", "");
+                    weight = Integer.parseInt(weightString);
+                }
             } catch (NoSuchElementException e) {
 
             }
             try {
-                String heightString = driver.findElementByXPath("(//div[@class='wrap'])[4]//div[@class='table-big-value']//span[@class='table-height-cm-wrapper']").getText();
-                heightString = heightString.replaceAll("\\D+","");
-                height = Integer.parseInt(heightString);
+                if(driver.findElementByXPath("(//div[@class='wrap'])[4]//div[@class='table-big-value']//span[@class='table-height-cm-wrapper']").getText().equals("")){
+                    height = null;
+                }else {
+                    String heightString = driver.findElementByXPath("(//div[@class='wrap'])[4]//div[@class='table-big-value']//span[@class='table-height-cm-wrapper']").getText();
+                    heightString = heightString.replaceAll("\\D+", "");
+                    height = Integer.parseInt(heightString);
+                }
             } catch (NoSuchElementException e) {
 
             }
@@ -169,7 +193,7 @@ public class TennisPlayerService {
                 wonGames = StringUtils.substringBefore(wonGames, "-");
                 wonGamesCount = Integer.parseInt(wonGames);
             } catch (NoSuchElementException e) {
-                
+
             }
             try {
                 String lostGames = driver.findElementByXPath("(//td[@colspan=1])[6]//div[1]").getText();
