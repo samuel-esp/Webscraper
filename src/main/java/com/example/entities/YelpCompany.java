@@ -5,7 +5,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @ToString
-public class Company {
+public class YelpCompany {
 
     private String id;
 

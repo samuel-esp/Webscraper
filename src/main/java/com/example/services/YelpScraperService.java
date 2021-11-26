@@ -1,6 +1,6 @@
 package com.example.services;
 import com.example.configuration.SeleniumConfiguration;
-import com.example.entities.Company;
+import com.example.entities.YelpCompany;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +14,7 @@ import java.util.*;
 
 
 @Service
-public class CompanyScraperService {
+public class YelpScraperService {
 
     private final String URL = "https://www.yelp.it/search?cflt=contractors&find_loc=Los%20Angeles%2C%20CA%2C%20Stati%20Uniti&start=";
 
@@ -30,11 +30,11 @@ public class CompanyScraperService {
         Set<String> companyLinks = extractCompanyLinks(driver);
 
         //estraggo informazione da tutti i link presenti nel set "companyLinks" (2)
-        List<Company> companyList = extractInformation(driver, companyLinks);
+        List<YelpCompany> yelpCompanyList = extractInformation(driver, companyLinks);
 
         //mappo tutta la lista della companies su un json da mandare in output sulla cartella target (3)
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File("target/companies.json"), companyList);
+        objectMapper.writeValue(new File("target/companies.json"), yelpCompanyList);
         driver.quit();
 
 
@@ -64,9 +64,9 @@ public class CompanyScraperService {
 
     //Funzione che estrae l'informazione da ogni pagina Yelp salvata in companyLinks. L'informazione estratta viene codificata sulla entity "Company" e aggiunta ad una lista.
     // Il processo termina quando tutto il set CompanyLinks e' visitato e ogni entity e' mappata e aggiunta alla lista(1)
-    public List<Company> extractInformation(ChromeDriver driver, Set<String> companyLinks) throws InterruptedException {
+    public List<YelpCompany> extractInformation(ChromeDriver driver, Set<String> companyLinks) throws InterruptedException {
 
-        List<Company> companyList = new ArrayList<>();
+        List<YelpCompany> yelpCompanyList = new ArrayList<>();
 
         for (String link : companyLinks) {
             driver.get(link);
@@ -127,7 +127,7 @@ public class CompanyScraperService {
 
             }
 
-            Company c = new Company();
+            YelpCompany c = new YelpCompany();
             c.setId(UUID.randomUUID().toString());
             c.setName(companyName);
             c.setType(companyType);
@@ -146,12 +146,12 @@ public class CompanyScraperService {
             System.out.println(c.getStarsCount());
             System.out.println(c.getReviewsCount());
             System.out.println(c.getWorkingHours() + "\n\n");
-            companyList.add(c);
+            yelpCompanyList.add(c);
 
 
         }
 
-        return companyList;
+        return yelpCompanyList;
 
     }
 

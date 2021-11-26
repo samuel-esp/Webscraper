@@ -1,8 +1,8 @@
 package com.example.webscraper;
 
-import com.example.services.CompanyScraperService;
-import com.example.services.TennisPlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.services.IndeedScraperService;
+import com.example.services.YelpScraperService;
+import com.example.services.AtpScraperService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,23 +19,26 @@ public class WebscraperApplication {
 
         System.out.println("TYPE 1 TO SCRAPE YELP.COM ...\n");
         System.out.println("TYPE 2 TO SCRAPE ATPTOUR.COM ...\n");
-        System.out.println("TYPE 3 TO SCRAPE TRUSTPILOT.COM ...\n");
-        System.out.println("TYPE 3 TO SCRAPE FANTACALCIO.IT ...\n");
+        System.out.println("TYPE 3 TO SCRAPE INDEED.COM ...\n");
+        System.out.println("TYPE 4 TO SCRAPE FANTACALCIO.IT ...\n");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
 
             if (Integer.parseInt(str) == 1) {
 
-                CompanyScraperService companyScraperService = new CompanyScraperService();
-                companyScraperService.scrape();
+                YelpScraperService yelpScraperService = new YelpScraperService();
+                yelpScraperService.scrape();
 
             } else if (Integer.parseInt(str) == 2) {
 
-                TennisPlayerService tennisPlayerService = new TennisPlayerService();
-                tennisPlayerService.scrape();
+                AtpScraperService atpScraperService = new AtpScraperService();
+                atpScraperService.scrape();
 
             } else if (Integer.parseInt(str) == 3) {
+
+                IndeedScraperService indeedScraperService = new IndeedScraperService();
+                indeedScraperService.scrape();
 
 
             } else {

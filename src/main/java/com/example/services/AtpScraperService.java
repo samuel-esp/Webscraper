@@ -1,7 +1,6 @@
 package com.example.services;
 
 import com.example.configuration.SeleniumConfiguration;
-import com.example.entities.Company;
 import com.example.entities.TennisPlayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-public class TennisPlayerService {
+public class AtpScraperService {
 
     private final String URL = "https://www.atptour.com/en/rankings/singles/?rankDate=2021-11-22&countryCode=all&rankRange=";
 
