@@ -70,19 +70,6 @@ public class YelpScraperService {
             }
         }
 
-        /*
-        for (int i = 0; i < 100; i = i + 10) {
-            StringBuilder stringBuilder = new StringBuilder();
-            String newUrl = stringBuilder.append(URL).append(i).toString();
-            driver.get(newUrl);
-            Thread.sleep(3000);
-            List<WebElement> refList = driver.findElementsByXPath("//span[@class=' css-1uq0cfn']//a");
-            for (WebElement element : refList) {
-                System.out.println(element.getAttribute("href"));
-                companyLinks.add(element.getAttribute("href"));
-            }
-        }*/
-
         return companyLinks;
 
     }
@@ -186,6 +173,8 @@ public class YelpScraperService {
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Los%20Angeles%2C%20CA%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Phoenix%2C%20AZ%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Dallas%2C%20TX%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Austin%2C%20TX%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Atlanta%2C%20GA%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Chicago%2C%20IL%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Houston%2C%20TX%2C%20Stati%20Uniti&start=");
 
