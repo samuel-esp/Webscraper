@@ -1,9 +1,6 @@
 package com.example.webscraper;
 
-import com.example.services.IndeedScraperService;
-import com.example.services.JustiaScraperService;
-import com.example.services.YelpScraperService;
-import com.example.services.AtpScraperService;
+import com.example.services.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -22,6 +19,7 @@ public class WebscraperApplication {
         System.out.println("TYPE 2 TO SCRAPE ATPTOUR.COM ...\n");
         System.out.println("TYPE 3 TO SCRAPE INDEED.COM ...\n");
         System.out.println("TYPE 4 TO SCRAPE JUSTIA.COM ...\n");
+        System.out.println("TYPE 5 TO SCRAPE ZOCDOC.COM ...\n");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
@@ -46,6 +44,12 @@ public class WebscraperApplication {
 
                 JustiaScraperService justiaScraperService = new JustiaScraperService();
                 justiaScraperService.scrape();
+
+            } else if (Integer.parseInt(str) == 5) {
+
+                ZocdocScraperService zocdocScraperService = new ZocdocScraperService();
+                zocdocScraperService.scrape();
+
             }
 
     }

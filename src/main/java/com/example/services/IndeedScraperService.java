@@ -10,12 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.stereotype.Service;
 
 import java.beans.beancontext.BeanContextChild;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+@Service
 public class IndeedScraperService {
 
     //private final String URLPrefix = "https://www.indeed.com/jobs?q=Software%20Engineer&start=";

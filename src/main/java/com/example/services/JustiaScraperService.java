@@ -7,11 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+@Service
 public class JustiaScraperService {
 
     private SeleniumConfiguration seleniumConfiguration = new SeleniumConfiguration();
@@ -21,7 +23,7 @@ public class JustiaScraperService {
         System.out.println("prova");
         ChromeDriver driver = new ChromeDriver();
         //mi estraggo tutti i link delle imprese edilizie da Yelp e la salvo sul set (1)
-        Set<String> lawyersLinks = extractLawyersLinks(driver);
+        Set<String> lawyersLinks = extractLawyerLinks(driver);
 
         //estraggo informazione da tutti i link presenti nel set "companyLinks" (2)
         List<Lawyer> lawyerList = extractInformation(driver, lawyersLinks);
@@ -34,7 +36,7 @@ public class JustiaScraperService {
 
     }
 
-    public Set<String> extractLawyersLinks(ChromeDriver driver) throws InterruptedException {
+    public Set<String> extractLawyerLinks(ChromeDriver driver) throws InterruptedException {
 
         Set<String> lawyersLinks = new HashSet<>();
         List<String> justiaSeeds = initializeSeeds();
