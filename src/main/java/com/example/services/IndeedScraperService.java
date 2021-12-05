@@ -33,6 +33,7 @@ public class IndeedScraperService {
         //estraggo informazione da tutti i link presenti nel set "companyLinks" (2)
         List<IndeedCompany> indeedCompanyList = extractInformation(driver, companyLinks);
         driver.quit();
+
         //mappo tutta la lista della companies su un json da mandare in output sulla cartella target (3)
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File("target/indeed.json"), indeedCompanyList);
