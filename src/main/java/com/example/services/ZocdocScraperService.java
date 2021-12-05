@@ -48,7 +48,6 @@ public class ZocdocScraperService {
         Collections.shuffle(zocdocSeeds);
 
         int i = 0;
-
         for (String URL: zocdocSeeds) {
             i = 0;
             while (doctorLinks.size() <= 15 && i <= 25) {

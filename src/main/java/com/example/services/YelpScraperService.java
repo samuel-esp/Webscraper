@@ -37,7 +37,6 @@ public class YelpScraperService {
         objectMapper.writeValue(new File("target/companies.json"), yelpCompanyList);
         driver.quit();
 
-
         }
 
 
@@ -45,7 +44,33 @@ public class YelpScraperService {
     public Set<String> extractCompanyLinks(ChromeDriver driver) throws InterruptedException {
 
         Set<String> companyLinks = new HashSet<>();
+        List<String> yelpSeeds = initializeSeeds();
+        Collections.shuffle(yelpSeeds);
 
+        int i = 0;
+        for (String URL: yelpSeeds) {
+            i = 0;
+            while (companyLinks.size() <= 15 && i <= 25) {
+                StringBuilder stringBuilder = new StringBuilder();
+                String newUrl = stringBuilder.append(URL).append(i).toString();
+                driver.get(newUrl);
+                if(i%5==0 || i==0) {
+                    Thread.sleep(5000);
+                }else{
+                    Thread.sleep(3000);
+                }
+                List<WebElement> refList = driver.findElementsByXPath("//span[@class=' css-1uq0cfn']//a");
+                for (WebElement element : refList) {
+                    String companyURL = element.getAttribute("href");
+                    System.out.println(companyURL);
+                    companyLinks.add(companyURL);
+                }
+                System.out.println("Company URLs Scraped: " + companyLinks.size());
+                i = i + 1;
+            }
+        }
+
+        /*
         for (int i = 0; i < 100; i = i + 10) {
             StringBuilder stringBuilder = new StringBuilder();
             String newUrl = stringBuilder.append(URL).append(i).toString();
@@ -56,7 +81,7 @@ public class YelpScraperService {
                 System.out.println(element.getAttribute("href"));
                 companyLinks.add(element.getAttribute("href"));
             }
-        }
+        }*/
 
         return companyLinks;
 
@@ -88,39 +113,39 @@ public class YelpScraperService {
 
             }
             try {
-                workingHours = driver.findElementByXPath("//div[@class=' display--inline-block__373c0__39WKb margin-r1-5__373c0__zJ1ZR border-color--default__373c0__2s5dW']//span[@class=' css-v2vuco']").getText();
+                workingHours = driver.findElementByXPath("//span[@class=' display--inline__09f24__c6N_k margin-l1__09f24__m8GL9 border-color--default__09f24__NPAKY']//span[@class=' css-1ccncw']").getText();
             } catch (NoSuchElementException e) {
 
             }
             try {
-                companyType = driver.findElementByXPath("//span[@class= ' display--inline__373c0__3d-lf margin-r1__373c0__7ZINV border-color--default__373c0__2s5dW']//span[@class=' css-oe5jd3']//a").getText();
+                companyType = driver.findElementByXPath("//span[@class=' css-1h7ysrc']//a").getText();
             } catch (NoSuchElementException e) {
 
             }
             try {
-                companyAddress = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__373c0__1YJkA border-color--default__373c0__r305k']//p[@class=' css-v2vuco']").getText();
+                companyAddress = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__09f24__exYYb border-color--default__09f24__NPAKY']//p[@class=' css-1ccncw']").getText();
             } catch (NoSuchElementException e) {
 
             }
             try {
-                companyWebsite = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__373c0__1YJkA border-color--default__373c0__r305k']//p[@class=' css-1u2njw' and contains(., \"Sito web dell'attività\")]/following-sibling::p//a").getAttribute("href");
+                companyWebsite = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__09f24__exYYb border-color--default__09f24__NPAKY']//p[@class=' css-1nv8jdk' and contains(.,  \"Sito web dell'attività\")]/following-sibling::p//a").getAttribute("href");
             } catch (NoSuchElementException e) {
 
             }
             try {
-                companyMobileNumber = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__373c0__1YJkA border-color--default__373c0__r305k']//p[@class=' css-1u2njw' and contains(., 'Numero di telefono')]/following-sibling::p").getText();
+                companyMobileNumber = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__09f24__exYYb border-color--default__09f24__NPAKY']//p[@class=' css-1nv8jdk' and contains(., 'Numero di telefono')]/following-sibling::p").getText();
             } catch (NoSuchElementException e) {
 
             }
             try {
-                String companyStars = driver.findElementByXPath("//span[@class=' display--inline__373c0__3d-lf border-color--default__373c0__2s5dW']//div").getAttribute("aria-label");
+                String companyStars = driver.findElementByXPath("//div[@class=' arrange__09f24__LDfbs gutter-1-5__09f24__vMtpw vertical-align-middle__09f24__zU9sE margin-b2__09f24__CEMjT border-color--default__09f24__NPAKY']//div[@role='img'][1]").getAttribute("aria-label");
                 companyStars = StringUtils.substringBefore(companyStars, " ");
                 companyStarsConverted = Double.parseDouble(companyStars);
             } catch (NoSuchElementException e) {
 
             }
             try {
-                String companyReviews = driver.findElementByXPath("//div[@class=' arrange-unit__373c0__2u2cR arrange-unit-fill__373c0__3cIO5 border-color--default__373c0__2s5dW nowrap__373c0__AzEKB']//span").getText();
+                String companyReviews = driver.findElementByXPath("//div[@class=' arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG border-color--default__09f24__NPAKY nowrap__09f24__lBkC2']//span").getText();
                 companyReviews = StringUtils.substringBefore(companyReviews, " ");
                 companyReviewsConverted = Integer.parseInt(companyReviews);
             } catch (NoSuchElementException e) {
@@ -152,6 +177,21 @@ public class YelpScraperService {
         }
 
         return yelpCompanyList;
+
+    }
+
+    public List<String> initializeSeeds(){
+
+        List<String> yelpSeeds = new LinkedList<>();
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Los%20Angeles%2C%20CA%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Phoenix%2C%20AZ%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Dallas%2C%20TX%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Chicago%2C%20IL%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Houston%2C%20TX%2C%20Stati%20Uniti&start=");
+
+
+        return yelpSeeds;
+
 
     }
 
