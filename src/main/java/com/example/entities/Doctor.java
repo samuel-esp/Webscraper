@@ -20,11 +20,13 @@ public class Doctor {
 
     private String address;
 
+    /*
     private String city;
 
     private String state;
 
     private String postalCode;
+    */
 
     private Double rating;
 

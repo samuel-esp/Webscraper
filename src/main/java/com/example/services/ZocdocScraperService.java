@@ -50,14 +50,14 @@ public class ZocdocScraperService {
         int i = 0;
         for (String URL: zocdocSeeds) {
             i = 0;
-            while (doctorLinks.size() <= 15 && i <= 25) {
+            while (doctorLinks.size() <= 100 && i <= 25) {
                 StringBuilder stringBuilder = new StringBuilder();
                 String newUrl = stringBuilder.append(URL).append(i).toString();
                 driver.get(newUrl);
                 if(i%5==0 || i==0) {
-                    Thread.sleep(5000);
+                    Thread.sleep(25000);
                 }else{
-                    Thread.sleep(3000);
+                    Thread.sleep(15000);
                 }
                 List<WebElement> refList = driver.findElementsByXPath("//a[@data-test='doctor-card-info-name']");
                 for (WebElement element : refList) {
@@ -81,10 +81,10 @@ public class ZocdocScraperService {
 
         for (String link : doctorLinks) {
             if (i == 100) {
-                Thread.sleep(7000);
+                Thread.sleep(25000);
             }
             driver.get(link);
-            Thread.sleep(5000);
+            Thread.sleep(15000);
             System.out.println(link + "\n\n");
 
             String name = null;
@@ -118,6 +118,19 @@ public class ZocdocScraperService {
 
             }
             try {
+                List<WebElement> addressList = driver.findElementsByXPath("//div[@data-test='location-card-address-container'][1]//span[@class='g58yd9-5 hElRrV']");
+                StringBuilder s = new StringBuilder();
+                for (WebElement element: addressList) {
+                    String currentString = element.getText();
+                    s.append(currentString);
+                    s.append(" ");
+                }
+                address = s.toString();
+            } catch (org.openqa.selenium.NoSuchElementException e) {
+
+            }
+            /*
+            try {
                 address = driver.findElementByXPath("//span[@itemprop='streetAddress']").getText();
             } catch (org.openqa.selenium.NoSuchElementException e) {
 
@@ -136,7 +149,7 @@ public class ZocdocScraperService {
                 postalCode = driver.findElementByXPath("//span[@itemprop='postalCode']").getText();
             } catch (org.openqa.selenium.NoSuchElementException e) {
 
-            }
+            }*/
             try {
                 rating = Double.parseDouble(driver.findElementByXPath("//div[@class='sc-15uikgc-1 iisYfV']").getText());
             } catch (org.openqa.selenium.NoSuchElementException e) {
@@ -172,21 +185,25 @@ public class ZocdocScraperService {
             d.setSpokenLanguages(spokenLanguagesList);
             d.setSpecialization(specializationList);
             d.setAddress(address);
+            /*
             d.setCity(city);
             d.setState(state);
+            */
             d.setRating(rating);
 
             System.out.println(d.getName());
             System.out.println(d.getNPINumber());
             System.out.println(d.getSpokenLanguages());
             System.out.println(d.getSpecialization());
-            System.out.println(d.getAddress());
+            System.out.println(d.getAddress());/*
             System.out.println(d.getCity());
-            System.out.println(d.getState());
+            System.out.println(d.getState());*/
             System.out.println(d.getRating());
 
             doctorList.add(d);
+            System.out.println("Doctor List Size: " + doctorList.size());
             i = i + 1;
+
 
         }
 
@@ -202,6 +219,8 @@ public class ZocdocScraperService {
         zocdocSeeds.add("https://www.zocdoc.com/search?address=Atlanta%2C+Georgia%2C+Stati+Uniti&city=Atlanta&date_searched_for=2021-12-28&&offset=");
         zocdocSeeds.add("https://www.zocdoc.com/search?address=Phoenix%2C+Arizona%2C+Stati+Uniti&city=Phoenix&date_searched_for=2021-12-28&&offset=");
         zocdocSeeds.add("https://www.zocdoc.com/search?address=Dallas%2C+Texas%2C+Stati+Uniti&city=Dallas&date_searched_for=2021-12-28&&offset=");
+        zocdocSeeds.add("https://www.zocdoc.com/search?address=Houston%2C+Texas%2C+Stati+Uniti&city=Dallas&date_searched_for=2021-12-28&&offset=");
+        zocdocSeeds.add("https://www.zocdoc.com/search?address=Chicago%2C+Illinois%2C+Stati+Uniti&city=Dallas&date_searched_for=2021-12-28&&offset=");
 
 
         return zocdocSeeds;

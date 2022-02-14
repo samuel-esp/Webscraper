@@ -16,9 +16,12 @@ import java.util.*;
 @Service
 public class YelpScraperService {
 
+    /*
     private final String URL = "https://www.yelp.it/search?cflt=contractors&find_loc=Los%20Angeles%2C%20CA%2C%20Stati%20Uniti&start=";
 
     private final String yelpURL = "https://www.yelp.it";
+    */
+
     private SeleniumConfiguration seleniumConfiguration = new SeleniumConfiguration();
 
     public void scrape() throws InterruptedException, IOException {
@@ -50,7 +53,7 @@ public class YelpScraperService {
         int i = 0;
         for (String URL: yelpSeeds) {
             i = 0;
-            while (companyLinks.size() <= 15 && i <= 25) {
+            while (companyLinks.size() <= 1050 && i <= 25) {
                 StringBuilder stringBuilder = new StringBuilder();
                 String newUrl = stringBuilder.append(URL).append(i).toString();
                 driver.get(newUrl);
@@ -115,7 +118,7 @@ public class YelpScraperService {
 
             }
             try {
-                companyWebsite = driver.findElementByXPath("//div[@class=' css-1vhakgw border--top__09f24__exYYb border-color--default__09f24__NPAKY']//p[@class=' css-1nv8jdk' and contains(.,  \"Sito web dell'attività\")]/following-sibling::p//a").getAttribute("href");
+                companyWebsite = driver.findElementByXPath("//div[@class=' arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG border-color--default__09f24__NPAKY']//p[@class=' css-1nv8jdk' and contains(.,  \"Sito web dell'attività\")]/following-sibling::p//a").getAttribute("href");
             } catch (NoSuchElementException e) {
 
             }
@@ -177,6 +180,19 @@ public class YelpScraperService {
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Atlanta%2C%20GA%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Chicago%2C%20IL%2C%20Stati%20Uniti&start=");
         yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Houston%2C%20TX%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Tulsa%2C%20OK%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Miami%2C%20FL%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Boise%2C%20ID%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Detroit%2C%20MI%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Seattle%2C%20WA%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Portland%2C%20OR%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Sacramento%2C%20CA%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Minneapolis%2C%20MN%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?cflt=contractors&find_loc=Columbus%2C%20WA%2C%20Stati%20Uniti&start=");
+        yelpSeeds.add("https://www.yelp.it/search?find_desc=contractors&find_loc=Salt+Lake+City%2C+UT&start=");
+        yelpSeeds.add("https://www.yelp.it/search?find_desc=contractors&find_loc=New+York%2C+NY&start=");
+
+
 
 
         return yelpSeeds;

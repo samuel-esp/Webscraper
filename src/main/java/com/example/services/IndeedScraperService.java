@@ -92,7 +92,7 @@ public class IndeedScraperService {
 
             IndeedCompany c;
 
-            if(driver.findElementsByXPath("//div[@id='company-details-section']").isEmpty()){
+            if(driver.findElementsByXPath("//*[@id=\"company-details-section\"]").isEmpty()){
                  c = processOldLayout(driver);
             }else{
                  c = processNewLayout(driver);
@@ -122,37 +122,37 @@ public class IndeedScraperService {
         Integer jobOffersCount = null;
 
         try {
-            name = driver.findElementByXPath("//span[@itemprop='name']").getText();
+            name = driver.findElementByXPath("//*[@id=\"cmp-container\"]/div/div[1]/header/div[2]/div[3]/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            industryType = driver.findElementByXPath("//div[@class='cmp-CompanyDetails']//a[@rel='nofollow']").getText();
+            industryType = driver.findElementByXPath("//a[@data-tn-element='industryLink']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            happinessScore = driver.findElementByXPath("//span[@class='cmp-HappinessCompanyRating-happinessScore']").getText();
+            happinessScore = driver.findElementByXPath("//span[@class='css-dzahvu e1wnkr790']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            reviewScore = Double.parseDouble(driver.findElementByXPath("//span[@class='cmp-CompactHeaderCompanyRatings-value']").getText());
+            reviewScore = Double.parseDouble(driver.findElementByXPath("//span[@class='css-1n6k8zn e1wnkr790']").getText());
         } catch (NoSuchElementException e) {
 
         }
         try {
-            headquarters = driver.findElementByXPath("//div[@class='cmp-CompanyDetailSection-content']//span[@class='cmp-NewLineToBr-text'][1]").getText();
+            headquarters = driver.findElementByXPath("//*[@id=\"company-details-section\"]/div/div/div[1]/span").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            employeesSize = driver.findElementByXPath("//div[@class='cmp-CompanyDetailSection'][3]//div[@class='cmp-CompanyDetailSection-content']").getText();
+            employeesSize = driver.findElementByXPath("//*[@id=\"company-details-section\"]/div/div/div[3]/span").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            List<WebElement> websites = driver.findElementsByXPath("//div[@class='cmp-CompanyDetails']//a[@rel='noopener nofollow']");
+            List<WebElement> websites = driver.findElementsByXPath("//a[@data-tn-element='companyLink[]']");
             if(!websites.isEmpty()) {
                 for (WebElement element : websites) {
                     String website = element.getAttribute("href");
@@ -163,7 +163,7 @@ public class IndeedScraperService {
 
         }
         try {
-            String jobOffersString = driver.findElementByXPath("//div[@class='cmp-JobSection-linkText']").getText();
+            String jobOffersString = driver.findElementByXPath("//*[@id=\"cmp-skip-header-desktop\"]/div/ul/li[7]/a/div").getText();
             jobOffersString = jobOffersString.replaceAll("\\D+", "");
             jobOffersCount = Integer.parseInt(jobOffersString);
         } catch (NoSuchElementException e) {
@@ -207,37 +207,37 @@ public class IndeedScraperService {
         Integer jobOffersCount = null;
 
         try {
-            name = driver.findElementByXPath("//span[@class='cmp-CompactHeaderCompanyName']").getText();
+            name = driver.findElementByXPath("//*[@id=\"cmp-container\"]/div/div[1]/header/div[2]/div[3]/div/div/div/div[1]/div[1]/div[2]/div[1]/div/div").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            industryType = driver.findElementByXPath("//a[@class='cmp-AboutBasicCompanyDetailsWidget-industryLink']").getText();
+            industryType = driver.findElementByXPath("//a[@data-tn-element='industryLink']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            happinessScore = driver.findElementByXPath("//span[@class='cmp-HappinessCompanyRating-happinessScore']").getText();
+            happinessScore = driver.findElementByXPath("//span[@class='css-s5cg6m e1wnkr790']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            reviewScore = Double.parseDouble(driver.findElementByXPath("//span[@class='cmp-CompactHeaderCompanyRatings-value']").getText());
+            reviewScore = Double.parseDouble(driver.findElementByXPath("//span[@class='css-htn3vt e1wnkr790']").getText());
         } catch (NoSuchElementException e) {
 
         }
         try {
-            headquarters = driver.findElementByXPath("//div[@data-testid='headquarters']").getText();
+            headquarters = driver.findElementByXPath("//span[@data-testid = 'headquarters']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            employeesSize = driver.findElementByXPath("//div[@data-testid='employees']").getText();
+            employeesSize = driver.findElementByXPath("//span[@data-testid = 'employees']").getText();
         } catch (NoSuchElementException e) {
 
         }
         try {
-            List<WebElement> websites = driver.findElementsByXPath("//a[@class='cmp-AboutBasicCompanyDetailsWidget-companyLink']");
+            List<WebElement> websites = driver.findElementsByXPath("//a[@data-tn-element='companyLink[]']");
             if(!websites.isEmpty()) {
                 for (WebElement element : websites) {
                     String website = element.getAttribute("href");
@@ -248,7 +248,7 @@ public class IndeedScraperService {
 
         }
         try {
-            String jobOffersString = driver.findElementByXPath("//div[@class='cmp-AboutBasicJobsWidget-allJobsText']").getText();
+            String jobOffersString = driver.findElementByXPath("//a[@data-tn-component='jobLinksSummary']").getText();
             jobOffersString = jobOffersString.replaceAll("\\D+", "");
             jobOffersCount = Integer.parseInt(jobOffersString);
         } catch (NoSuchElementException e) {
